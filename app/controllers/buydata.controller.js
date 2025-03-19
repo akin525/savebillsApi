@@ -100,14 +100,14 @@ exports.buydatanewencry =  async (req, res) => {
             paymentmethod:"wallet",
         });
 
-        const profits = amount - product.amount;
+        const profits = product.tamount - product.amount;
         const pro = await profit.create({
             username: user.username,
             amount: profits,
             plan: product.plan,
         });
 
-            const tamount = parseInt(user.wallet) - parseInt(amount);
+            const tamount = parseInt(user.wallet) - parseInt(product.tamount);
             await User.update(
                 { wallet: tamount },
                 {
@@ -158,16 +158,6 @@ exports.buydatanewencry =  async (req, res) => {
 
 
 
-                const update={
-                    tamount:gbonus,
-                }
-
-                gateway.findAll({where:{ id:1,}}).then((result)=>{
-                    if (result){
-                        result[0].set(update);
-                        result[0].save();
-                    }
-                })
                 return   res.status(200).send({
                     status: 1,
                     data:{
