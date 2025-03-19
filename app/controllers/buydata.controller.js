@@ -64,7 +64,11 @@ exports.buydatanewencry =  async (req, res) => {
                 message: "Product not found"
             });
         }
-
+        return res.status(200).send({
+            status: 0,
+            product:product,
+            message: "testing  product"
+        });
         const amount = product.tamount;
             return res.status(200).send({
                 status: 0,
