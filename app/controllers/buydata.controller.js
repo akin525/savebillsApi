@@ -64,17 +64,15 @@ exports.buydatanewencry =  async (req, res) => {
                 message: "Product not found"
             });
         }
-        return res.status(200).send({
-            status: 0,
-            product:product,
-            message: "testing  product"
-        });
-        const amount = product.tamount;
-            return res.status(200).send({
-                status: 0,
-                balance: user.wallet,
-                message: "Insufficient balance"
-            });
+        // return res.status(200).send({
+        //     status: 0,
+        //     product:product,
+        //     message: "testing  product"
+        // });
+
+        if (parseInt(user.wallet) < parseInt(product.tamount)) {
+            return res.status(400).send({ status: 0, balance: user.wallet, message: "Insufficient balance" });
+        }
 
         const totalbill = await bill.findOne({
             where: {
