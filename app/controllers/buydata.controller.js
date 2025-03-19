@@ -112,7 +112,7 @@ exports.buydatanewencry =  async (req, res) => {
                 { wallet: tamount },
                 {
                     where: {
-                        id: userId,
+                        id: user.id,
                     },
                 }
             );
