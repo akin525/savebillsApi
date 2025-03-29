@@ -94,6 +94,41 @@ exports.datanew = async (req, res) => {
         });
     }
 };
+exports.getSingledata = async (req, res) => {
+    const decryptedData = req.decryptedData;
+
+    try {
+        let allplan = await datanew.findOne({
+            where: {
+                id: decryptedData.id,
+            },
+        });
+
+        // Check if data exists
+        if (!allplan) {
+            return res.status(404).send({
+                status: 0,
+                message: "Data not found",
+            });
+        }
+
+        // Convert Sequelize object to plain JSON and round values
+        allplan = allplan.toJSON();
+        allplan.amount = Math.ceil(Number(allplan.amount)).toString();
+        allplan.tamount = Math.ceil(Number(allplan.tamount)).toString();
+        allplan.ramount = Math.ceil(Number(allplan.ramount)).toString();
+
+        return res.status(200).send({
+            status: 1,
+            data: allplan,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            status: 0,
+            message: error.message,
+        });
+    }
+};
 exports.datapin=  async (req, res) => {
     const decryptedData = req.decryptedData;
 

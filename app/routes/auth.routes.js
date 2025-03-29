@@ -122,6 +122,7 @@ module.exports = function(app) {
 
       app.post("/api/auth/data",[encrypt.decryptMiddleware], data.data);
       app.post("/api/auth/datanew",[encrypt.decryptMiddleware], data.datanew);
+      app.post("/api/auth/singledata",[encrypt.decryptMiddleware], data.getSingledata);
       app.post("/api/auth/createlock", [encrypt.decryptMiddleware], createlock.safelock);
       app.get("/api/auth/allock",
           [authJwt.verifyToken],
